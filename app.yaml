@@ -4,12 +4,12 @@ env: standard
 handlers:
   
 #If the path is empty show the status index.html file
--url: /
+- url: /
   static_files: index.html
   upload: index.html
  
 #Otherwise find files in status directory
--url: /static
+- url: /static
   static_dir: /static
 
 # All other URLs are handled by the Go application script
