@@ -49,10 +49,10 @@ func main() {
 
 	block := Block{
 		Hash: blockhash,
-		Index:1,
-		Timestamp: timeStamp(),
-		PreviousHash: []byte("ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"),
-		Data: "abc",
+		Index:index,
+		Timestamp: ts,
+		PreviousHash: previousHash,
+		Data: data,
 	}
 
 	b,err := json.Marshal(block)
