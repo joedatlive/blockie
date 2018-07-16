@@ -1,3 +1,11 @@
+package main
+
+import (
+	"fmt"
+	"net/http"
+	"google.golang.org/appengine"
+)
+
 //http handler below
 func indexHandler(w http.ResponseWriter, r *http.Request) {
 	// if statement redirects all invalid URLs to the root homepage.

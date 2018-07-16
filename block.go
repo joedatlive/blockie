@@ -1,6 +1,4 @@
-// a fuction which takes input and creates a block
-
-package main
+package block
 
 import "time"
 import "fmt"
@@ -24,9 +22,9 @@ func hasher(index int, previousHash []byte, timeStamp time.Time, data string) st
 	return string(sha256_hash)
 }
 
+// a fuction which takes input and creates a block
 
-
-func main() {
+func block() {
 	//set variables
 	ts := timeStamp()
 	previousHash := []byte("ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad")
