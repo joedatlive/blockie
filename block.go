@@ -6,6 +6,7 @@ import "time"
 import "fmt"
 import "crypto/SHA256"
 import "encoding/hex"
+import "google.golang.org/appengine" // Required external App Enginer lib
 
 func timeStamp() time.Time {
 	ts := time.Now().UTC()
@@ -22,6 +23,8 @@ func hasher(index int, previousHash []byte, timeStamp time.Time, data string) st
 	//return string of hash in hex of this block's data
 	return string(sha256_hash)
 }
+
+
 
 func main() {
 	//set variables
