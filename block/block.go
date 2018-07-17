@@ -26,9 +26,19 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 			//we will create a block upon POST
 			ts := timeStamp()
 			previousHash := []byte("ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad")
-			data := "abc"
+			//data := "abc"
 			index := 1
 			
+			//get the data from the for POST
+			//Call to ParseForm makes form fields available.
+			err := r.ParseForm()
+			if err != nil {
+				// Handle error here via logging and then return
+				return            
+			}
+
+			data := r.Form.Get("nodeName")
+
 			// pass in this block's data to hasher and return hash
 			blockhash := hasher(index, previousHash, ts, data)
 
