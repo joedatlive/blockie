@@ -16,6 +16,14 @@ type Block struct {
 	Data string
 }
 
+type Data struct {
+	NodeName string
+	Owner string
+	Account string
+	Package string
+	Zone string
+}
+
 //http handler below
 func indexHandler(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
@@ -37,17 +45,39 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 				return            
 			}
 
-			data := r.Form.Get("nodeName")
+			n := r.Form.Get("nodeName")
+			o := r.Form.Get("owner")
+			a := r.Form.Get("account")
+			p := r.Form.Get("package")
+			z := r.Form.Get("zone")
+
+			// Put URL values into a data struct
+			data := Data{
+				NodeName: n,
+				Owner: o,
+				Account: a,
+				Package: p,
+				Zone: z,
+			} 
+			
+			//convert to json
+			d,err := json.Marshal(data)
+			if err != nil {
+				fmt.Println(err)
+				return
+			}
+			dstr :=string(d)
 
 			// pass in this block's data to hasher and return hash
-			blockhash := hasher(index, previousHash, ts, data)
+			blockhash := hasher(index, previousHash, ts, dstr)
 
+			//create a block with the data and needed meta-data	
 			block := Block{
 				Hash: blockhash,
 				Index:index,
 				Timestamp: ts,
 				PreviousHash: previousHash,
-				Data: data,
+				Data: dstr,
 			}
 
 			b,err := json.Marshal(block)
