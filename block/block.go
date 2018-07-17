@@ -18,31 +18,37 @@ type Block struct {
 
 //http handler below
 func indexHandler(w http.ResponseWriter, r *http.Request) {
-	//fmt.Fprintln(w, "Best Blockie Ever!") // Response to request
+	switch r.Method {
+		case "GET":
+			//we will enumerate blocks here
+			fmt.Fprintln(w,"This will return a list of blocks.  Someday.")
+		case "POST":
+			//we will create a block upon POST
+			ts := timeStamp()
+			previousHash := []byte("ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad")
+			data := "abc"
+			index := 1
+			
+			// pass in this block's data to hasher and return hash
+			blockhash := hasher(index, previousHash, ts, data)
 
-	//adding block creation logic
-	ts := timeStamp()
-	previousHash := []byte("ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad")
-	data := "abc"
-	index := 1
-	
-	// pass in this block's data to hasher and return hash
-	blockhash := hasher(index, previousHash, ts, data)
+			block := Block{
+				Hash: blockhash,
+				Index:index,
+				Timestamp: ts,
+				PreviousHash: previousHash,
+				Data: data,
+			}
 
-	block := Block{
-		Hash: blockhash,
-		Index:index,
-		Timestamp: ts,
-		PreviousHash: previousHash,
-		Data: data,
-	}
-
-	b,err := json.Marshal(block)
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-	fmt.Fprintln(w, string(b))
+			b,err := json.Marshal(block)
+			if err != nil {
+				fmt.Println(err)
+				return
+			}
+			fmt.Fprintln(w, string(b))
+		default:
+			fmt.Fprintf(w, "Sorry, only GET and POST methods are supported.")
+	}	
   }
 
 func timeStamp() time.Time {

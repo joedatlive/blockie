@@ -2,12 +2,74 @@
 <html>
 <head>
   <title>BBE</title>
-  <link rel="stylesheet" type="text/css" href="/static/style.css">
+  <link rel="stylesheet" type="text/css" href="static/bootstrap/css/bootstrap.min.css">
+  <script src="static/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
 
-<h1>Best Blockie Ever</h1>
+  <div class="container">
+    <div class="jumbotron jumbotron-fluid">
+      <div class="container">
+          <div class="row">
+            <div class="col-2">
+                <img id="logo" src="static/blockielogo.png" width="100">
+            </div>
+            <div class="col-8">
+              <h1 class="display-4">Best Blockie Ever</h1>
+              <p class="lead">A Blockchain experiment</p>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-<img id="logo" src="/static/blockielogo.png" width="100">
+  <div class="container">
+    <form action="https://bestblockieever.appspot.com/block" method="post">
+      <div class="form-group">
+        <label for="nodeName">New Node Name</label>
+        <input type="text" class="form-control" id="nodeName" placeholder="Enter node name">
+        <small id="nodeHelp" class="form-text text-muted">This is a node you want to add to your network.</small>
+      </div>
+      
+      <div class="form-group">
+          <label for="owner">Owner</label>
+          <input type="text" class="form-control" id="owner" placeholder="Enter owner">
+      </div>
+
+      <div class="form-group">
+          <label for="account">Account</label>
+          <input type="text" class="form-control" id="account" placeholder="Enter account name">
+          <small id="nodeHelp" class="form-text text-muted">This is the account your node will use for access to other services.</small>
+      </div>
+
+      <div class="form-group">
+          <label for="package">Package</label>
+          <input type="text" class="form-control" id="package" placeholder="Enter packages installed">
+          <small id="nodeHelp" class="form-text text-muted">This is the application package your node will run.</small>
+      </div>
+
+      <div class="form-group">
+          <label for="zone">Zone</label>
+          <input type="text" class="form-control" id="zone" placeholder="Enter zone">
+          <small id="nodeHelp" class="form-text text-muted">This is the security zone or group for your node.</small>
+      </div>
+
+
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+
+<!-->  
+<div class="container">
+  <div class="card" style="width: 18rem;">
+    <img class="card-img-top" src="static/blockielogo.png" width="50" alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title">Card title</h5>
+      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+      <a href="#" class="btn btn-primary">Go somewhere</a>
+    </div>
+  </div>
+</div>
+<-->
 </body>
 </html>
