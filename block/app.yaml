@@ -1,7 +1,6 @@
 runtime: go
 api_version: go1
 env: standard
-service: blockserv
 handlers:
 # All other URLs are handled by the Go application script
 - url: /.*

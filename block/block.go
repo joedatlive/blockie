@@ -6,7 +6,8 @@ import "crypto/sha256"
 import "encoding/hex"
 import "net/http"
 import "google.golang.org/appengine"
-import "google.golang.org/appengine/datastore"
+//import "google.golang.org/appengine/datastore"
+//import "log"
 import "encoding/json"
 
 type Block struct {
@@ -82,19 +83,21 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 				Data: dstr,
 			}
 
+			//put the block in json
 			b,err := json.Marshal(block)
 			if err != nil {
 				fmt.Println(err)
 				return
 			}
 			//lets try to connect to Google Cloud Storage Bucket
-			ctx := appengine.NewContext(r)
+		/*	ctx := appengine.NewContext(r)
 			key := datastore.NewIncompleteKey(ctx, "Block", nil)
 
 			if _, err := datastore.Put(ctx, key, &b); err != nil {
-				//log.Errorf(ctx, "datastore.Put: %v", err)
+				log.Fatalf("datastore.Put: %v", err)
 				return
 		}
+		*/
 
 			// Send the block info back to the web client for the user
 			// we will convert this to read from the data store...
