@@ -6,6 +6,7 @@ import "crypto/sha256"
 import "encoding/hex"
 import "net/http"
 import "google.golang.org/appengine"
+import "google.golang.org/appengine/datastore"
 import "encoding/json"
 
 type Block struct {
@@ -33,8 +34,9 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 		case "POST":
 			//we will create a block upon POST
 			ts := timeStamp()
+			
+			//these are temporary data
 			previousHash := []byte("ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad")
-			//data := "abc"
 			index := 1
 			
 			//get the data from the for POST
@@ -85,11 +87,23 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 				fmt.Println(err)
 				return
 			}
+			//lets try to connect to Google Cloud Storage Bucket
+			ctx := appengine.NewContext(r)
+			key := datastore.NewIncompleteKey(ctx, "Block", nil)
+
+			if _, err := datastore.Put(ctx, key, &b); err != nil {
+				//log.Errorf(ctx, "datastore.Put: %v", err)
+				return
+		}
+
+			// Send the block info back to the web client for the user
+			// we will convert this to read from the data store...
 			fmt.Fprintln(w, string(b))
 		default:
 			fmt.Fprintf(w, "Sorry, only GET and POST methods are supported.")
 	}	
   }
+
 
 func timeStamp() time.Time {
 	ts := time.Now().UTC()
